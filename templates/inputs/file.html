@@ -1,0 +1,36 @@
+<div class="file-field input-field">
+  <div class="btn">
+    <span>File</span>
+    <input
+      type="file"
+      id="{{ input.name }}"
+      name="{{ input.name }}"
+      {%
+      if
+      input.required
+      %}required{%
+      endif
+      %}
+      {%
+      if
+      input.disabled
+      %}disabled{%
+      endif
+      %}
+      {%
+      if
+      input.accept
+      %}accept="{{ input.accept }}"
+      {%
+      endif
+      %}
+    />
+  </div>
+  <div class="file-path-wrapper">
+    <input
+      class="file-path validate"
+      type="text"
+      placeholder="{{ input.label }}"
+    />
+  </div>
+</div>

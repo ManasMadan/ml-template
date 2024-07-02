@@ -1,0 +1,57 @@
+inputsConfig =[        
+    {
+        "type": "text",
+        "name": "username",
+        "label": "Username",
+        "placeholder": "Enter your username",
+        "required": True,
+        "disabled": False,
+    },
+    {
+        "type": "number",
+        "name": "age",
+        "label": "Age",
+        "min": 18,
+        "max": 100,
+        "required": True,
+    },
+    {
+        "type": "select",
+        "name": "country",
+        "label": "Country",
+        "options": ["USA", "UK", "Canada", "Australia"],
+        "default": "USA",
+    },
+    {
+        "type": "radio",
+        "name": "gender",
+        "label": "Gender",
+        "options": ["Male", "Female", "Other"],
+        "required": True,
+    },
+    {
+        "type": "checkbox",
+        "name": "terms",
+        "label": "I agree to the terms and conditions",
+        "required": True,
+    },
+    {
+        "type": "file",
+        "name": "profile_picture",
+        "label": "Profile Picture",
+        "accept": "image/*",
+    },
+    {
+        "type": "textarea",
+        "name": "bio",
+        "label": "Biography",
+        "placeholder": "Tell us about yourself",
+        "rows": 4,
+    },
+    {
+        "type": "date",
+        "name": "birthdate",
+        "label": "Date of Birth",
+        "required": True,
+    },
+]

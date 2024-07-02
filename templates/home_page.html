@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block extra_css %}
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .input-field {
+    margin-bottom: 0;
+  }
+  p,
+  label {
+    margin-bottom: 0;
+  }
+  @media only screen and (max-width: 600px) {
+    .btn {
+      width: 100%;
+    }
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="container">
+  <h4 class="center-align">{{form_title}}</h4>
+  <form action="/submit" method="post" enctype="multipart/form-data">
+    {% for input in inputs %} {% include 'inputs/' + input.type + '.html' %} {%
+    endfor %}
+    <div class="center-align">
+      <button class="btn waves-effect waves-light" type="submit">
+        Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    M.updateTextFields();
+    var textareas = document.querySelectorAll("textarea");
+    M.CharacterCounter.init(textareas);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+        {% for theme_id, theme_data in themes.items() %}
+        .{{ theme_id }}-theme {
+            --primary-color: {{ theme_data.colors.primary }};
+            --secondary-color: {{ theme_data.colors.secondary }};
+            --background-color: {{ theme_data.colors.background }};
+            --text-color: {{ theme_data.colors.text }};
+            --link-color: {{ theme_data.colors.link }};
+        }
+        {% endfor %}
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        main {
+            flex: 1 0 auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+        }
+
+        nav, .page-footer {
+            background-color: var(--primary-color);
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        a {
+            color: var(--link-color);
+        }
+
+        .sidenav {
+            background-color: var(--background-color);
+        }
+
+        .sidenav li > a {
+            color: var(--text-color);
+        }
+
+        .sidenav .subheader {
+            color: var(--secondary-color);
+        }
+
+        @media only screen and (max-width: 992px) {
+            nav .brand-logo {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+         /* Override Materialize styles */
+      input[type=text]:not(.browser-default):focus:not([readonly]),
+      input[type=number]:not(.browser-default):focus:not([readonly]),
+      textarea.materialize-textarea:focus:not([readonly]),
+      .select-wrapper input.select-dropdown:focus {
+          border-bottom: 1px solid var(--secondary-color);
+          box-shadow: 0 1px 0 0 var(--secondary-color);
+      }
+
+      input[type=text]:not(.browser-default):focus:not([readonly])+label,
+      input[type=number]:not(.browser-default):focus:not([readonly])+label,
+      textarea.materialize-textarea:focus:not([readonly])+label {
+          color: var(--secondary-color);
+      }
+
+      .dropdown-content li>a, .dropdown-content li>span {
+          color: var(--secondary-color);
+      }
+
+      [type="radio"]:checked+span:after,
+      [type="radio"].with-gap:checked+span:before,
+      [type="radio"].with-gap:checked+span:after {
+          border: 2px solid var(--secondary-color);
+      }
+
+      [type="radio"]:checked+span:after,
+      [type="radio"].with-gap:checked+span:after {
+          background-color: var(--secondary-color);
+      }
+
+      [type="checkbox"]:checked+span:not(.lever):before {
+          border-right: 2px solid var(--secondary-color);
+          border-bottom: 2px solid var(--secondary-color);
+      }
+
+      .select-wrapper input.select-dropdown {
+          color: var(--text-color);
+      }
+
+      .select-wrapper .caret {
+          fill: var(--text-color);
+      }
+    </style>
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body class="{{ current_theme }}-theme">
+    {% if site_config.show_nav %}
+    <header>
+      <nav>
+        <div class="nav-wrapper container">
+          <a href="/" class="brand-logo">{{ title }}</a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"
+            ><i class="material-icons">menu</i></a
+          >
+          <ul class="right hide-on-med-and-down">
+            {% for item in nav_items %}
+            <li>
+              <a
+                href="{{ item.url }}{% if theme_config.use_theme_switcher %}?theme={{ current_theme }}{% endif %}"
+                >{{ item.name }}</a
+              >
+            </li>
+            {% endfor %} {% if theme_config.use_theme_switcher %}
+            <li>
+              <a class="dropdown-trigger" href="#" data-target="theme-dropdown"
+                >Theme<i class="material-icons right">arrow_drop_down</i></a
+              >
+              <ul id="theme-dropdown" class="dropdown-content">
+                {% for theme_id in theme_config.available_themes %}
+                <li>
+                  <a href="?theme={{ theme_id }}"
+                    >{{ themes[theme_id].name }}</a
+                  >
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+
+      <ul class="sidenav" id="mobile-nav">
+        {% for item in nav_items %}
+        <li>
+          <a
+            href="{{ item.url }}{% if theme_config.use_theme_switcher %}?theme={{ current_theme }}{% endif %}"
+            >{{ item.name }}</a
+          >
+        </li>
+        {% endfor %} {% if theme_config.use_theme_switcher %}
+        <li><div class="subheader">Themes</div></li>
+        {% for theme_id in theme_config.available_themes %}
+        <li><a href="?theme={{ theme_id }}">{{ themes[theme_id].name }}</a></li>
+        {% endfor %} {% endif %}
+      </ul>
+    </header>
+    {% endif %}
+
+    <main>{% block content %}{% endblock %}</main>
+
+    {% if site_config.show_footer %}
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">{{ title }}</h5>
+            <p class="grey-text text-lighten-4">{{ description }}</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Connect</h5>
+            <ul>
+              {% for link in social_links %}
+              <li>
+                <a
+                  class="grey-text text-lighten-3"
+                  href="{{ link.url }}"
+                  target="_blank"
+                  >{{ link.name }}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">© {{copyright_year}} {{ title }}</div>
+      </div>
+    </footer>
+    {% endif %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        M.AutoInit();
+        var elems = document.querySelectorAll(".sidenav");
+        var instances = M.Sidenav.init(elems);
+      });
+    </script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

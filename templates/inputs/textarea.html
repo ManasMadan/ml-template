@@ -1,0 +1,27 @@
+<div class="input-field">
+  <textarea
+    id="{{ input.name }}"
+    name="{{ input.name }}"
+    class="materialize-textarea"
+    {%
+    if
+    input.required
+    %}required{%
+    endif
+    %}
+    {%
+    if
+    input.disabled
+    %}disabled{%
+    endif
+    %}
+    {%
+    if
+    input.rows
+    %}rows="{{ input.rows }}"
+    {%
+    endif
+    %}
+  ></textarea>
+  <label for="{{ input.name }}">{{ input.label }}</label>
+</div>

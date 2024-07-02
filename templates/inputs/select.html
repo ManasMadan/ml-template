@@ -1,0 +1,10 @@
+<div class="input-field">
+    <select id="{{ input.name }}" name="{{ input.name }}"
+            {% if input.required %}required{% endif %}
+            {% if input.disabled %}disabled{% endif %}>
+        {% for option in input.options %}
+            <option value="{{ option }}" {% if option == input.default %} selected {% endif %}>{{ option }}</option>
+        {% endfor %}
+    </select>
+    <label>{{ input.label }}</label>
+</div>

@@ -1,0 +1,38 @@
+<div class="input-field">
+  <input
+    id="{{ input.name }}"
+    name="{{ input.name }}"
+    type="number"
+    {%
+    if
+    input.required
+    %}required{%
+    endif
+    %}
+    {%
+    if
+    input.disabled
+    %}disabled{%
+    endif
+    %}
+    {%
+    if
+    input.min
+    is
+    defined
+    %}min="{{ input.min }}"
+    {%
+    endif
+    %}
+    {%
+    if
+    input.max
+    is
+    defined
+    %}max="{{ input.max }}"
+    {%
+    endif
+    %}
+  />
+  <label for="{{ input.name }}">{{ input.label }}</label>
+</div>

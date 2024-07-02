@@ -1,0 +1,25 @@
+<div>
+  <p>{{ input.label }}</p>
+  {% for option in input.options %}
+  <label>
+    <input
+      name="{{ input.name }}"
+      type="radio"
+      value="{{ option }}"
+      {%
+      if
+      input.required
+      %}required{%
+      endif
+      %}
+      {%
+      if
+      input.disabled
+      %}disabled{%
+      endif
+      %}
+    />
+    <span>{{ option }}</span>
+  </label>
+  {% endfor %}
+</div>

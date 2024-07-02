@@ -1,0 +1,20 @@
+<div class="input-field">
+  <input
+    id="{{ input.name }}"
+    name="{{ input.name }}"
+    type="text"
+    {%
+    if
+    input.required
+    %}required{%
+    endif
+    %}
+    {%
+    if
+    input.disabled
+    %}disabled{%
+    endif
+    %}
+  />
+  <label for="{{ input.name }}">{{ input.label }}</label>
+</div>
