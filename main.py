@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
-from pages_data import (form_title,about_page_title,projectSections)
-from site_config import (pageTitle, site_config ,projectDescription, navItems, socialLinks,copyright_year)
-from themes_config import (themes, theme_config)
-from inputs_config import inputsConfig
+from configs.pages import (form_title,about_page_title,projectSections)
+from configs.site import (pageTitle, site_config ,projectDescription, navItems, socialLinks,copyright_year)
+from configs.themes import (themes, theme_config)
+from configs.inputs import inputsConfig
 app = Flask(__name__)
 
 @app.route("/")
